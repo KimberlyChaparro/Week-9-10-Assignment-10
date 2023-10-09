@@ -42,17 +42,17 @@ const InspoList = () => {
 
     return (
         <Box mt={5}>
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
                 {inspos &&
                     inspos.map((inspo) => (
                         <Box
-                            p={3}
+                            p={8}
                             boxShadow="2xl"
                             shadow={"dark-lg"}
                             transition="0.2s"
                             _hover={{ boxShadow: "sm" }}
                         >
-                            <Heading as="h3" fontSize={"xl"}>
+                            <Heading color="#5D3FD3" as="h3" fontSize={"xl"}>
                                 {inspo.title}{" "}
                                 <Badge
                                     color="red.500"
@@ -70,7 +70,7 @@ const InspoList = () => {
                                 </Badge>
 
                             </Heading>
-                            <Text>{inspo.description}</Text>
+                            <Text color="#C3B1E1">{inspo.description}</Text>
                         </Box>
                     ))}
             </SimpleGrid>
