@@ -4,7 +4,7 @@ import {
     Heading,
     SimpleGrid,
     Text,
-    useToast,
+    useToast
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
@@ -12,6 +12,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { FaTrash } from "react-icons/fa";
 import { deleteInspo } from "../api/inspo";
+
 const InspoList = () => {
     const [inspos, setInspos] = React.useState([]);
     const { user } = useAuth();
@@ -53,7 +54,9 @@ const InspoList = () => {
                             _hover={{ boxShadow: "sm" }}
                         >
                             <Heading color="#5D3FD3" as="h3" fontSize={"xl"}>
-                                {inspo.title}{" "}
+                                <a href={"/inspo/" + inspo.id}>
+                                    {inspo.title}{" "}
+                                </a>
                                 <Badge
                                     color="red.500"
                                     bg="inherit"
@@ -72,9 +75,10 @@ const InspoList = () => {
                             </Heading>
                             <Text color="#C3B1E1">{inspo.description}</Text>
                         </Box>
-                    ))}
-            </SimpleGrid>
-        </Box>
+                    ))
+                }
+            </SimpleGrid >
+        </Box >
     );
 };
 export default InspoList;
