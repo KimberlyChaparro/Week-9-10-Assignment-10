@@ -47,6 +47,7 @@ const InspoList = () => {
                 {inspos &&
                     inspos.map((inspo) => (
                         <Box
+                            key={inspo.id}
                             p={8}
                             boxShadow="2xl"
                             shadow={"dark-lg"}
