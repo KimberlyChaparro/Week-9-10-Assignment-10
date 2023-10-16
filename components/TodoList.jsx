@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Badge,
     Box,
@@ -6,33 +7,16 @@ import {
     Text,
     useToast,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../firebase";
 import { FaToggleOff, FaToggleOn, FaTrash } from "react-icons/fa";
 import { deleteTodo, toggleTodoStatus } from "../api/todo";
+import { doUseEffect } from "../api/use-effect";
 const TodoList = () => {
     const [todos, setTodos] = React.useState([]);
     const { user } = useAuth();
     const toast = useToast();
-    const refreshData = () => {
-        if (!user) {
-            setTodos([]);
-            return;
-        }
-        const q = query(collection(db, "todo"), where("user", "==", user.uid));
-        onSnapshot(q, (querySnapchot) => {
-            let ar = [];
-            querySnapchot.docs.forEach((doc) => {
-                ar.push({ id: doc.id, ...doc.data() });
-            });
-            setTodos(ar);
-        });
-    };
-    useEffect(() => {
-        refreshData();
-    }, [user]);
+    // tell react to update the ui!
+    doUseEffect(setTodos, "todo", user);
     const handleTodoDelete = async (id) => {
         if (confirm("Are you sure you wanna delete this todo?")) {
             deleteTodo(id);
@@ -61,7 +45,8 @@ const TodoList = () => {
                             _hover={{ boxShadow: "sm" }}
                         >
                             <Heading as="h3" fontSize={"xl"}>
-                                {todo.title}{" "}
+                                <a href={"/todo/" + todo.id}>{todo.title}</a>
+                                {" "}
                                 <Badge
                                     color="red.500"
                                     bg="inherit"
