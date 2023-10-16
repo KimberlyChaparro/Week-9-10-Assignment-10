@@ -30,7 +30,7 @@ const Auth = () => {
             });
     };
     return (
-        <Box position={"fixed"} top="5%" right="5%">
+        <Box textAlign={"right"} p={"2"}>
             <Button onClick={() => toggleColorMode()}>
                 {colorMode == "dark" ? <FaSun /> : <FaMoon />}
             </Button>{" "}
