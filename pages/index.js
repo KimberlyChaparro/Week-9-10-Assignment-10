@@ -12,7 +12,7 @@ export default function Home() {
     <>
       <Auth />
       <Container maxW="7xl">
-        <Tabs>
+        <Tabs variant='soft-rounded' colorScheme='purple'>
           <TabList>
             <Tab>Todos</Tab>
             <Tab>Events</Tab>
