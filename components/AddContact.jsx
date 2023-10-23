@@ -110,8 +110,10 @@ const AddContact = () => {
                     <Button
                         onClick={() => handleContactCreate()}
                         disabled={name.length < 1 || phoneNumber.length < 1 || email.length < 1 || birthday.length < 1 || isLoading}
-                        colorScheme="purple"
+                        colorScheme="brand"
                         variant="solid"
+                        size="lg"
+                        w="full"
                     >
                         Add
                     </Button>

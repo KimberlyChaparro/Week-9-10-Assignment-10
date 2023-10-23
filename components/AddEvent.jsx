@@ -53,7 +53,7 @@ const AddEvent = () => {
                 <Button
                     onClick={() => handleEventCreate()}
                     disabled={title.length < 1 || description.length < 1 || isLoading}
-                    colorScheme="purple"
+                    colorScheme="brand"
                     variant="solid"
                 >
                     Add

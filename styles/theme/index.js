@@ -1,24 +1,83 @@
-import { extendTheme, theme as base } from '@chakra-ui/react';
+import { extendTheme, theme as base, withDefaultColorScheme, withDefaultVariant, defineStyle, defineStyleConfig, } from '@chakra-ui/react';
+
+const inputSelectStyles = {
+    variants: {
+        filled: {
+            field: {
+                _focus: {
+                    borderColor: 'brand.500',
+                },
+            },
+        },
+    },
+    sizes: {
+        md: {
+            field: {
+                borderRadius: 'none',
+            },
+        },
+    },
+};
+
+const outline = defineStyle({
+    border: 'solid',
+    borderRadius: 0,
+    fontWeight: 'semibold',
+    _focus: {
+        borderColor: 'brand.500',
+    },
+})
+
+export const textareaTheme = defineStyleConfig({
+    variants: { outline },
+})
+
 
 const theme = extendTheme({
     colors: {
         brand: {
-            50: '#f5fee5',
-            100: '#e1fbb2',
-            200: '#cdf781',
-            300: '#b8ee56',
-            400: '#a2e032',
-            500: '#8ac919',
-            600: '#71ab09',
-            700: '#578602',
-            800: '#3c5e00',
-            900: '#203300',
+            50: '#efe5fe',
+            100: '#deb2fb',
+            200: '#c481f7',
+            300: '#9f56ee',
+            400: '#5719c9',
+            500: '#8819c9',
+            600: '#5a09ab',
+            700: '#32005e',
+            800: '#24005e',
+            900: '#110033',
         },
     },
     fonts: {
         heading: `Montserrat, ${base.fonts?.heading}`,
         body: `Nunito Sans, ${base.fonts?.body}`,
     },
-});
+    components: {
+        Textarea: { ...textareaTheme },
+        Input: { ...inputSelectStyles },
+        Select: { ...inputSelectStyles },
+        Checkbox: {
+            baseStyle: {
+                control: {
+                    borderRadius: 'none',
+                    _focus: {
+                        ring: 2,
+                        ringColor: 'brand.500',
+                    },
+                },
+            },
+        },
+    },
+},
+    withDefaultColorScheme({
+        colorScheme: 'brand',
+        components: ['Checkbox'],
+    }),
+    withDefaultVariant({
+        variant: 'filled',
+        components: ['Input', 'Select'],
+    })
+);
 
 export default theme;
+

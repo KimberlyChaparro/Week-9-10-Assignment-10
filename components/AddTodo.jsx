@@ -71,7 +71,7 @@ const AddTodo = () => {
                 <Button
                     onClick={() => handleTodoCreate()}
                     disabled={title.length < 1 || description.length < 1 || isLoading}
-                    colorScheme="teal"
+                    colorScheme="brand"
                     variant="solid"
                 >
                     Add
