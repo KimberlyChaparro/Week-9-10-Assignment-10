@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import {
-    Heading,
-    Flex,
-    InputGroup,
+    Container,
     Input,
     Button,
-    Text
+    Text,
+    Heading,
+    GridItem,
+    Grid,
+    useBreakpointValue,
+    useToast,
 } from "@chakra-ui/react";
 import useAuth from "../../hooks/useAuth";
 import {
@@ -17,9 +20,12 @@ import { db } from "../../firebase";
 
 // define the jsx component to show just one single to do in our ui
 const EventItem = ({ itemData }) => {
-    const [inputTitle, setInputTitle] = useState(itemData.title);
-    const [inputDescription, setInputDescription] = useState(itemData.description);
+    const colSpan = useBreakpointValue({ base: 2, md: 1 });
+    const [inputEventName, setInputEventName] = useState(itemData.eventName);
+    const [inputDetails, setInputDetails] = useState(itemData.details);
+    const [inputDate, setInputDate] = useState(itemData.date);
     const [statusMsg, setStatusMsg] = useState('');
+    const toast = useToast();
     // enforce user login
     const { user } = useAuth() || {};
     if (!user) {
@@ -32,12 +38,16 @@ const EventItem = ({ itemData }) => {
         updateDoc(
             docRef,
             {
-                title: inputTitle,
-                description: inputDescription
+                eventName: inputEventName,
+                details: inputDetails,
+                date: inputDate
             }
         ).then(
             docRef => {
                 setStatusMsg("Updated!");
+                toast({
+                    title: "Woohoo successfully updated", status: "success"
+                });
             }
         ).catch(
             error => {
@@ -46,30 +56,59 @@ const EventItem = ({ itemData }) => {
             }
         );
     }
+
+
+
+
     // if our code continues execution to here, a user is logged in
     // finally return the jsx component
     return (
-        <Flex flexDir="column" maxW={800} align="center" justify="start" minH="100vh" m="auto" px={4} py={3}>
-            <InputGroup>
-                <Input type="text" value={inputTitle} onChange={(e) => setInputTitle(e.target.value)} placeholder="Title" />
-                <Input type="text" value={inputDescription} onChange={(e) => setInputDescription(e.target.value)} placeholder="Description" />
-                <Button
-                    ml={2}
-                    onClick={() => sendData()}
-                >
-                    Update
-                </Button>
-            </InputGroup>
-            <Text>
-                {itemData.status}
-            </Text>
-            <Text>
-                {new Date(itemData.createdAt).toLocaleDateString('en-US')}
-            </Text>
-            <Text>
-                {statusMsg}
-            </Text>
-        </Flex>
+
+        <Container maxW='8xl' centerContent mt="10">
+            <Heading mb="10">Here you can update fields:</Heading>
+            <Grid columns={2} columnGap={3} rowGap={6} w="50%">
+                <GridItem colSpan={colSpan}>
+                    <Text>Event Name:</Text>
+                    <Input type="text" value={inputEventName} onChange={(e) => setInputEventName(e.target.value)} placeholder="Event Name" />
+                </GridItem>
+
+                <GridItem colSpan={colSpan}>
+                    <Text>Date:</Text>
+                    <Input type="text" value={inputDate} onChange={(e) => setInputDate(e.target.value)} placeholder="Date" />
+                </GridItem>
+
+                <GridItem colSpan={colSpan}>
+                    <Text>Details:</Text>
+                    <Input type="text" value={inputDetails} onChange={(e) => setInputDetails(e.target.value)} placeholder="Details" />
+                </GridItem>
+
+                <GridItem colSpan={2}>
+                    <Button
+                        colorScheme="brand"
+                        variant="solid"
+                        size="lg"
+                        w="full"
+                        ml={2}
+                        onClick={() => sendData()}
+                    >
+                        Update changes
+                    </Button>
+                </GridItem>
+
+                <Text>
+                    {itemData.status}
+                </Text>
+                <Text>
+                    {new Date(itemData.createdAt).toLocaleDateString('en-US')}
+                </Text>
+                <Text>
+                    {statusMsg}
+                </Text>
+            </Grid>
+
+        </Container>
+
+
     );
 };
 

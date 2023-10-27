@@ -2,7 +2,6 @@ import React from "react";
 import {
     Heading,
     VStack,
-    Form,
     FormLabel,
     Grid,
     GridItem,
@@ -17,8 +16,8 @@ import {
 import useAuth from "../hooks/useAuth";
 import { addEvent } from "../api/event";
 const AddEvent = () => {
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
+    const [eventName, setEventName] = React.useState("");
+    const [details, setDetails] = React.useState("");
     const [date, setDate] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
     const toast = useToast();
@@ -34,7 +33,7 @@ const AddEvent = () => {
             return;
         }
 
-        if (!title) {
+        if (!eventName) {
             toast({
                 title: "You must include a title to create a todo",
                 status: "error",
@@ -44,7 +43,7 @@ const AddEvent = () => {
             return;
         }
 
-        if (!description) {
+        if (!details) {
             toast({
                 title: "You must include a description to create a todo",
                 status: "error",
@@ -66,15 +65,15 @@ const AddEvent = () => {
 
         setIsLoading(true);
         const event = {
-            title,
-            description,
+            eventName,
+            details,
             date,
             userId: user.uid,
         };
         await addEvent(event);
         setIsLoading(false);
-        setTitle("");
-        setDescription("");
+        setEventName("");
+        setDetails("");
         setDate("");
         toast({ title: "Event created successfully", status: "success" });
     };
@@ -92,8 +91,8 @@ const AddEvent = () => {
                         <FormLabel>Event name:</FormLabel>
                         <Input
                             placeholder="2023 Next.js Conference"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={eventName}
+                            onChange={(e) => setEventName(e.target.value)}
                         />
                     </FormControl>
                 </GridItem>
@@ -118,8 +117,8 @@ const AddEvent = () => {
                         <FormLabel>Event Details:</FormLabel>
                         <Textarea
                             placeholder="Keynote presentation with updates"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={details}
+                            onChange={(e) => setDetails(e.target.value)}
                         />
                     </FormControl>
                 </GridItem>
@@ -127,7 +126,7 @@ const AddEvent = () => {
                 <GridItem colSpan={2} >
                     <Button
                         onClick={() => handleEventCreate()}
-                        disabled={title.length < 1 || description.length < 1 || date.length < 1 || isLoading}
+                        disabled={eventName.length < 1 || details.length < 1 || date.length < 1 || isLoading}
                         colorScheme="brand"
                         variant="solid"
                         size="lg"

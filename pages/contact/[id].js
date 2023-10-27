@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import {
-    Heading,
-    Flex,
-    InputGroup,
+    Container,
     Input,
     Button,
-    Text
+    Text,
+    Heading,
+    GridItem,
+    Grid,
+    useBreakpointValue,
+    useToast,
 } from "@chakra-ui/react";
 import useAuth from "../../hooks/useAuth";
 import {
@@ -17,11 +20,13 @@ import { db } from "../../firebase";
 
 // define the jsx component to show just one single to do in our ui
 const ContactItem = ({ itemData }) => {
+    const colSpan = useBreakpointValue({ base: 2, md: 1 });
     const [inputName, setInputName] = useState(itemData.name);
     const [inputPhoneNumber, setInputPhoneNumber] = useState(itemData.phoneNumber);
     const [inputEmail, setInputEmail] = useState(itemData.email);
     const [inputBirthday, setInputBirthday] = useState(itemData.birthday);
     const [statusMsg, setStatusMsg] = useState('');
+    const toast = useToast();
     // enforce user login
     const { user } = useAuth() || {};
     if (!user) {
@@ -42,6 +47,9 @@ const ContactItem = ({ itemData }) => {
         ).then(
             docRef => {
                 setStatusMsg("Updated!");
+                toast({
+                    title: "Woohoo successfully updated", status: "success"
+                });
             }
         ).catch(
             error => {
@@ -53,29 +61,56 @@ const ContactItem = ({ itemData }) => {
     // if our code continues execution to here, a user is logged in
     // finally return the jsx component
     return (
-        <Flex flexDir="column" maxW={800} align="center" justify="start" minH="100vh" m="auto" px={4} py={3}>
-            <InputGroup>
-                <Input type="text" value={inputName} onChange={(e) => setInputName(e.target.value)} placeholder="Name" />
-                <Input type="text" value={inputPhoneNumber} onChange={(e) => setInputPhoneNumber(e.target.value)} placeholder="Phone Number" />
-                <Input type="text" value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} placeholder="Email" />
-                <Input type="text" value={inputBirthday} onChange={(e) => setInputBirthday(e.target.value)} placeholder="Birthday" />
-                <Button
-                    ml={2}
-                    onClick={() => sendData()}
-                >
-                    Update
-                </Button>
-            </InputGroup>
-            <Text>
-                {itemData.status}
-            </Text>
-            <Text>
-                {new Date(itemData.createdAt).toLocaleDateString('en-US')}
-            </Text>
-            <Text>
-                {statusMsg}
-            </Text>
-        </Flex>
+        <Container maxW='8xl' centerContent mt="10">
+            <Heading mb="10">Here you can update fields:</Heading>
+            <Grid columns={2} columnGap={3} rowGap={6} w="50%">
+                <GridItem colSpan={colSpan}>
+                    <Text>Full Name:</Text>
+                    <Input type="text" value={inputName} onChange={(e) => setInputName(e.target.value)} placeholder="Full Name" />
+                </GridItem>
+
+                <GridItem colSpan={colSpan}>
+                    <Text>Phone Number:</Text>
+                    <Input type="text" value={inputPhoneNumber} onChange={(e) => setInputPhoneNumber(e.target.value)} placeholder="Phone Number" />
+                </GridItem>
+
+                <GridItem colSpan={colSpan}>
+                    <Text>Email:</Text>
+                    <Input type="text" value={inputEmail} onChange={(e) => setInputEmail(e.target.value)} placeholder="Email" />
+                </GridItem>
+
+                <GridItem colSpan={colSpan}>
+                    <Text>Birthday:</Text>
+                    <Input type="text" value={inputBirthday} onChange={(e) => setInputBirthday(e.target.value)} placeholder="Birthday" />
+                </GridItem>
+
+                <GridItem colSpan={2}>
+                    <Button
+                        colorScheme="brand"
+                        variant="solid"
+                        size="lg"
+                        w="full"
+                        ml={2}
+                        onClick={() => sendData()}
+                    >
+                        Update changes
+                    </Button>
+                </GridItem>
+
+                <Text>
+                    {itemData.status}
+                </Text>
+                <Text>
+                    {new Date(itemData.createdAt).toLocaleDateString('en-US')}
+                </Text>
+                <Text>
+                    {statusMsg}
+                </Text>
+            </Grid>
+
+        </Container>
+
+
     );
 };
 

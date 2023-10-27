@@ -56,7 +56,7 @@ const EventList = () => {
                         >
                             <Heading color="#5D3FD3" as="h3" fontSize={"xl"}>
                                 <a href={"/event/" + event.id}>
-                                    {event.title}{" "}
+                                    {event.eventName}{" "}
                                 </a>
                                 <Badge
                                     color="red.500"
@@ -75,7 +75,7 @@ const EventList = () => {
 
                             </Heading>
                             <Text color="#C3B1E1">{event.date}</Text>
-                            <Text color="#C3B1E1">{event.description}</Text>
+                            <Text color="#C3B1E1">{event.details}</Text>
                         </Box>
                     ))
                 }

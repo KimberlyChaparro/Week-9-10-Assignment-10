@@ -5,12 +5,12 @@ import {
     doc,
     deleteDoc,
 } from "firebase/firestore";
-const addEvent = async ({ userId, title, description, date }) => {
+const addEvent = async ({ userId, eventName, details, date }) => {
     try {
         await addDoc(collection(db, "event"), {
             user: userId,
-            title: title,
-            description: description,
+            eventName: eventName,
+            details: details,
             date: date,
             createdAt: new Date().getTime(),
         });
