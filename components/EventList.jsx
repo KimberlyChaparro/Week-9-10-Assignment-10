@@ -74,6 +74,7 @@ const EventList = () => {
                                 </Badge>
 
                             </Heading>
+                            <Text color="#C3B1E1">{event.date}</Text>
                             <Text color="#C3B1E1">{event.description}</Text>
                         </Box>
                     ))

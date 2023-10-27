@@ -37,7 +37,7 @@ const ContactItem = ({ itemData }) => {
                 name: inputName,
                 phoneNumber: inputPhoneNumber,
                 email: inputEmail,
-                birthday: inputirthday
+                birthday: inputBirthday
             }
         ).then(
             docRef => {

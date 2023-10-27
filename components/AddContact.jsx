@@ -1,6 +1,7 @@
 import React from "react";
 import {
     FormControl,
+    Center,
     FormLabel,
     Text,
     Grid,
@@ -25,13 +26,53 @@ const AddContact = () => {
     const handleContactCreate = async () => {
         if (!isLoggedIn) {
             toast({
-                name: "You must be logged in to create a contact",
+                title: "You must be logged in to create a contact",
                 status: "error",
                 duration: 9000,
                 isClosable: true,
             });
             return;
         }
+        if (!name) {
+            toast({
+                title: "You must include name",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        if (!email) {
+            toast({
+                title: "You must include email",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        if (!phoneNumber) {
+            toast({
+                title: "You must include phone number",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        if (!birthday) {
+            toast({
+                title: "You must include birthday",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+            return;
+        }
+
         setIsLoading(true);
         const contact = {
             name,
@@ -48,7 +89,7 @@ const AddContact = () => {
         setBirthday("");
         toast({ title: "Contact created successfully", status: "success" });
     };
-    const colSpan = useBreakpointValue({ base: 1, md: 2 });
+    const colSpan = useBreakpointValue({ base: 2, md: 1 });
     return (
         <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
             <VStack spacing={3} alignItems="flex-start">
@@ -58,8 +99,8 @@ const AddContact = () => {
             <Grid columns={2} columnGap={3} rowGap={6} w="full"
             >
                 <GridItem colSpan={colSpan}>
-                    <FormControl>
-                        <FormLabel>Contact name</FormLabel>
+                    <FormControl isRequired>
+                        <FormLabel>Full name</FormLabel>
                         <Input
                             placeholder="John Smith"
                             value={name}
@@ -68,7 +109,7 @@ const AddContact = () => {
                     </FormControl>
                 </GridItem>
                 <GridItem colSpan={colSpan}>
-                    <FormControl>
+                    <FormControl isRequired>
                         <FormLabel>Phone Number</FormLabel>
                         <Input
                             placeholder="777-777-7777"
@@ -78,22 +119,21 @@ const AddContact = () => {
                         />
                     </FormControl>
                 </GridItem>
-                <FormControl>
-                    <FormLabel>Email</FormLabel>
-                    <GridItem colSpan={colSpan}>
+                <GridItem colSpan={2}>
+                    <FormControl isRequired>
+                        <FormLabel>Email</FormLabel>
                         <Input
                             placeholder="JohnSmith@example.com"
                             type="email"
-                            required
-                            isRequired
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                    </GridItem>
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Birthday</FormLabel>
-                    <GridItem colSpan={colSpan}>
+                    </FormControl>
+                </GridItem>
+
+                <GridItem colSpan={2}>
+                    <FormControl isRequired>
+                        <FormLabel>Birthday</FormLabel>
                         <Input
                             id="birthday"
                             placeholder="Birthday"
@@ -103,10 +143,11 @@ const AddContact = () => {
                             value={birthday}
                             onChange={(e) => setBirthday(e.target.value)}
                         />
-                    </GridItem>
-                </FormControl>
+                    </FormControl>
+                </GridItem>
 
-                <GridItem>
+
+                <GridItem colSpan={2} >
                     <Button
                         onClick={() => handleContactCreate()}
                         disabled={name.length < 1 || phoneNumber.length < 1 || email.length < 1 || birthday.length < 1 || isLoading}

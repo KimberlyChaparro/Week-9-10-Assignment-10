@@ -21,11 +21,17 @@ const inputSelectStyles = {
 
 const outline = defineStyle({
     border: 'solid',
+    background: 'var(--chakra-colors-gray-200)',
     borderRadius: 0,
-    fontWeight: 'semibold',
     _focus: {
         borderColor: 'brand.500',
     },
+
+
+    _dark: {
+        background: 'var(--chakra-colors-chakra-body-bg)',
+        color: 'white',
+    }
 })
 
 export const textareaTheme = defineStyleConfig({
