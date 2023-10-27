@@ -54,7 +54,7 @@ const ContactList = () => {
                             transition="0.2s"
                             _hover={{ boxShadow: "sm" }}
                         >
-                            <Heading color="#5D3FD3" as="h3" fontSize={"xl"}>
+                            <Heading mb="5" color="#5D3FD3" as="h3" fontSize={"xl"}>
                                 <a href={"/contact/" + contact.id}>
                                     {contact.name}{" "}
                                 </a>
@@ -74,9 +74,9 @@ const ContactList = () => {
                                 </Badge>
 
                             </Heading>
-                            <Text color="#C3B1E1">{contact.phoneNumber}</Text>
-                            <Text color="#C3B1E1">{contact.email}</Text>
-                            <Text color="#C3B1E1">{contact.birthday}</Text>
+                            <Text>{contact.phoneNumber}</Text>
+                            <Text>{contact.email}</Text>
+                            <Text>{contact.birthday}</Text>
                         </Box>
                     ))
                 }

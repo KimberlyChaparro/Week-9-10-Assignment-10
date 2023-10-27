@@ -44,44 +44,46 @@ const TodoList = () => {
                             transition="0.2s"
                             _hover={{ boxShadow: "sm" }}
                         >
-                            <Heading as="h3" fontSize={"xl"}>
+                            <Badge
+
+                                color="red.500"
+                                bg="inherit"
+                                transition={"0.2s"}
+                                _hover={{
+                                    bg: "inherit",
+                                    transform: "scale(1.2)",
+                                }}
+                                float="right"
+                                size="xs"
+                                onClick={() => handleTodoDelete(todo.id)}
+                            >
+                                <FaTrash />
+                            </Badge>
+                            <Badge
+                                color={todo.status == "pending" ? "gray.500" : "green.500"}
+                                bg="inherit"
+                                transition={"0.2s"}
+                                _hover={{
+                                    bg: "inherit",
+                                    transform: "scale(1.2)",
+                                }}
+                                float="right"
+                                size="xs"
+                                onClick={() => handleToggle(todo.id, todo.status)}
+                            >
+                                {todo.status == "pending" ? <FaToggleOff /> : <FaToggleOn />}
+                            </Badge>
+                            <Badge
+                                float="right"
+                                opacity="0.8"
+                                bg={todo.status == "pending" ? "yellow.500" : "green.500"}
+                            >
+                                {todo.status}
+                            </Badge>
+                            <Heading mb="5" color="#5D3FD3" as="h3" fontSize={"xl"}>
                                 <a href={"/todo/" + todo.id}>{todo.title}</a>
                                 {" "}
-                                <Badge
-                                    color="red.500"
-                                    bg="inherit"
-                                    transition={"0.2s"}
-                                    _hover={{
-                                        bg: "inherit",
-                                        transform: "scale(1.2)",
-                                    }}
-                                    float="right"
-                                    size="xs"
-                                    onClick={() => handleTodoDelete(todo.id)}
-                                >
-                                    <FaTrash />
-                                </Badge>
-                                <Badge
-                                    color={todo.status == "pending" ? "gray.500" : "green.500"}
-                                    bg="inherit"
-                                    transition={"0.2s"}
-                                    _hover={{
-                                        bg: "inherit",
-                                        transform: "scale(1.2)",
-                                    }}
-                                    float="right"
-                                    size="xs"
-                                    onClick={() => handleToggle(todo.id, todo.status)}
-                                >
-                                    {todo.status == "pending" ? <FaToggleOff /> : <FaToggleOn />}
-                                </Badge>
-                                <Badge
-                                    float="right"
-                                    opacity="0.8"
-                                    bg={todo.status == "pending" ? "yellow.500" : "green.500"}
-                                >
-                                    {todo.status}
-                                </Badge>
+
                             </Heading>
                             <Text>{todo.description}</Text>
                         </Box>

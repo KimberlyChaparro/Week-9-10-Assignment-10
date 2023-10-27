@@ -35,7 +35,7 @@ const AddEvent = () => {
 
         if (!eventName) {
             toast({
-                title: "You must include a title to create a todo",
+                title: "You must include an event name to create an event",
                 status: "error",
                 duration: 9000,
                 isClosable: true,
@@ -45,7 +45,7 @@ const AddEvent = () => {
 
         if (!details) {
             toast({
-                title: "You must include a description to create a todo",
+                title: "You must include details to create an event",
                 status: "error",
                 duration: 9000,
                 isClosable: true,
@@ -55,7 +55,7 @@ const AddEvent = () => {
 
         if (!date) {
             toast({
-                title: "You must include a date to create a todo",
+                title: "You must include a date to create an event",
                 status: "error",
                 duration: 9000,
                 isClosable: true,

@@ -54,7 +54,7 @@ const EventList = () => {
                             transition="0.2s"
                             _hover={{ boxShadow: "sm" }}
                         >
-                            <Heading color="#5D3FD3" as="h3" fontSize={"xl"}>
+                            <Heading mb="5" color="#5D3FD3" as="h3" fontSize={"xl"}>
                                 <a href={"/event/" + event.id}>
                                     {event.eventName}{" "}
                                 </a>
@@ -74,8 +74,8 @@ const EventList = () => {
                                 </Badge>
 
                             </Heading>
-                            <Text color="#C3B1E1">{event.date}</Text>
-                            <Text color="#C3B1E1">{event.details}</Text>
+                            <Text>{event.date}</Text>
+                            <Text>{event.details}</Text>
                         </Box>
                     ))
                 }
