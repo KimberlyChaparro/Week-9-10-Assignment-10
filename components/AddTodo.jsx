@@ -80,7 +80,7 @@ const AddTodo = () => {
             <Grid columns={2} columnGap={3} rowGap={6} w="full">
                 <GridItem colSpan={colSpan}>
                     <FormControl isRequired>
-                        <FormLabel>Tile:</FormLabel>
+                        <FormLabel>Title:</FormLabel>
                         <Input
                             placeholder="Complete weekly reading assignments"
                             value={title}
